@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './order-detail.module.css';
 
 export const OrderDetail = ({orderId}) => {
@@ -17,3 +18,7 @@ export const OrderDetail = ({orderId}) => {
     </div>
   )
 }
+
+OrderDetail.propTypes = {
+  orderId: PropTypes.string
+}; 

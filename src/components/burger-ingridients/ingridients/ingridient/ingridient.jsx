@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal } from '../../../modal/modal';
 import { IngridientDetail } from '../ingridient-detail/ingridient-detail';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -19,9 +20,18 @@ export const Ingridient = ({data}) => {
           {data.name}
         </h3>
       </li>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen} modalTitle={'Детали Ингридиента'}>
-        <IngridientDetail data={data} />
-      </Modal>
+      { isOpen &&
+        <Modal handleClose={() => setIsOpen(false)} modalTitle={'Детали Ингридиента'}>
+          <IngridientDetail data={data} />
+        </Modal>
+      }
     </>
   )
+}
+
+Ingridient.propTypes = {
+  optionalUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 }

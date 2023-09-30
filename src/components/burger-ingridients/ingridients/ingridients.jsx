@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Ingridient } from './ingridient/ingridient';
 import styles from './ingridients.module.css';
 
@@ -14,4 +15,13 @@ export const Ingridients = ({data, type, title}) => {
     </ul>
     </>
   )
+}
+
+Ingridients.propTypes = {
+  optionalUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  type: PropTypes.string,
+  title: PropTypes.string,
 }

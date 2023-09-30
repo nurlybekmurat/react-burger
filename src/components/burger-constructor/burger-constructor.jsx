@@ -3,6 +3,7 @@ import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-de
 import { IngredientItem } from './ingredient-item/ingredient-item';
 import { Modal } from '../modal/modal';
 import { OrderDetail } from './order-detail/order-detail';
+import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = ({data}) => {
@@ -14,7 +15,7 @@ export const BurgerConstructor = ({data}) => {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={data[0]?.name}
+          text={`${data[0]?.name} (верх)`}
           price={data[0]?.price}
           thumbnail={data[0]?.image_mobile}
         />
@@ -29,7 +30,7 @@ export const BurgerConstructor = ({data}) => {
       <ConstructorElement
         type="bottom"
         isLocked={true}
-        text={data[0]?.name}
+        text={`${data[0]?.name} (низ)`}
         price={data[0]?.price}
         thumbnail={data[0]?.image_mobile}
       />
@@ -45,9 +46,17 @@ export const BurgerConstructor = ({data}) => {
           Оформить заказ
         </Button>
       </div>
-      <Modal handleClose={() => setIsOpen(false)} isOpen={isOpen}>
+      { isOpen &&     
+      <Modal handleClose={() => setIsOpen(false)}>
         <OrderDetail orderId={'034536'} />
-      </Modal>
+      </Modal>}
     </div>
   )
+}
+
+IngredientItem.propTypes = {
+  optionalUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 }
