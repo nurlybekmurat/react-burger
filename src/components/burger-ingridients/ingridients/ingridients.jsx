@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { ingredientType } from '../../../utils/prop-types';
 import { Ingridient } from './ingridient/ingridient';
 import styles from './ingridients.module.css';
 
@@ -18,10 +19,7 @@ export const Ingridients = ({data, type, title}) => {
 }
 
 Ingridients.propTypes = {
-  optionalUnion: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
   type: PropTypes.string,
   title: PropTypes.string,
 }

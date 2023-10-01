@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ingredientType } from '../../utils/prop-types';
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientItem } from './ingredient-item/ingredient-item';
 import { Modal } from '../modal/modal';
@@ -54,9 +55,6 @@ export const BurgerConstructor = ({data}) => {
   )
 }
 
-IngredientItem.propTypes = {
-  optionalUnion: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-}
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+};

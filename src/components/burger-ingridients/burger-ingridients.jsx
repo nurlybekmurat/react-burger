@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { ingredientType } from '../../utils/prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Ingridients } from './ingridients/ingridients';
 import styles from './burger-ingridients.module.css';
 
 export const BurgerIngridients = ({data}) => {
   const [current, setCurrent] = useState('bun');
+
   return (
     <section className='BurgerIngridients'>
       <div className={`${styles.Tabs} mb-10`}>
@@ -29,8 +31,5 @@ export const BurgerIngridients = ({data}) => {
 }
 
 BurgerIngridients.propTypes = {
-  optionalUnion: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-}
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
+};

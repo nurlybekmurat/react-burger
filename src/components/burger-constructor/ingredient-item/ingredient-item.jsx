@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { ingredientType } from '../../../utils/prop-types';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './ingredient-item.module.css';
 
@@ -18,9 +18,6 @@ export const IngredientItem = ({ data }) => {
 };
 
 IngredientItem.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    price: PropTypes.number,
-    thumbnail: PropTypes.string,
-  }).isRequired,
+  data: ingredientType.isRequired
 }
+

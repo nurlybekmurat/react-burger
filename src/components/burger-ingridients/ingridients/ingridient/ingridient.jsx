@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ingredientType } from '../../../../utils/prop-types';
 import PropTypes from 'prop-types';
 import { Modal } from '../../../modal/modal';
 import { IngridientDetail } from '../ingridient-detail/ingridient-detail';
@@ -10,7 +11,7 @@ export const Ingridient = ({data}) => {
 
   return(
     <>
-      <li className={`${styles.Card}`} key={data._id} onClick={()=> {setIsOpen(true)}}>
+      <li className={`${styles.Card}`} onClick={()=> {setIsOpen(true)}}>
         <img className={`${styles.CardImage}`} src={data.image} alt="" />
         <span className={`${styles.CardCost} text text_type_main-default mb-1`}>
           <CurrencyIcon type="primary" />
@@ -28,10 +29,6 @@ export const Ingridient = ({data}) => {
     </>
   )
 }
-
 Ingridient.propTypes = {
-  optionalUnion: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  data: ingredientType.isRequired
 }

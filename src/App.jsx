@@ -9,12 +9,13 @@ const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 const App = () => {
   const[data, setData] = useState([]);
+  const[errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     loadPost(API_URL).then(data => {
       setData(data.data);
     }).catch(error => {
-      return error.message;
+      setErrorMessage(error.message);
     });
   }, []);
 
@@ -23,6 +24,9 @@ const App = () => {
       <AppHeader/>
       <main className='constructor pl-5 pr-5 container'>
         <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
+        {errorMessage && (
+          <p className='error'> {errorMessage} </p>
+        )}
         <div className='constructor-wrapper'>
           <BurgerIngridients data={data} />
           <BurgerConstructor data={data} />
