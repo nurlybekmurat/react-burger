@@ -1,0 +1,10 @@
+.IngredientItem {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.IngredientItem:not(:last-child) {
+  margin-bottom: 16px;
+}

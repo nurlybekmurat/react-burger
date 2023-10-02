@@ -1,0 +1,21 @@
+.BurgerConstructor {
+  width: 100%;
+}
+
+.IngredientList {
+  margin: 0;
+  padding: 0;
+  height: calc(100vh - 536px);
+  overflow-y: scroll;
+}
+
+.IngredientItem {
+  margin-left: 32px;
+  padding-right: 16px;
+}
+
+.PriceWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

@@ -1,0 +1,24 @@
+.Wrapper {
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Title {
+  text-align: center;
+}
+
+.List {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.Item {
+  width: 100%;
+  list-style: none;
+}

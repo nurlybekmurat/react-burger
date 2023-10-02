@@ -1,0 +1,22 @@
+.Card {
+  max-width: 272px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.CardImage {
+  display: block;
+  margin: 0 auto 4px;
+}
+
+.CardCost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.CardTitle {
+  text-align: center;
+  min-height: 48px;
+}
