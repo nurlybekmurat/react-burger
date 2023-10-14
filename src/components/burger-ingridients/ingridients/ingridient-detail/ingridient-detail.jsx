@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styles from './ingridient-detail.module.css';
 
-export const IngridientDetail = ({data}) => {
+export const IngridientDetail = () => {
+  const data = useSelector(state => state.ingredientDetail.ingredientDetail);
+
   return(
     <div className={`${styles.Wrapper}`}>
       <img src={data.image_large} alt="" className="mb-4" />
@@ -44,14 +46,4 @@ export const IngridientDetail = ({data}) => {
       </ul>
     </div>
   )
-}
-
-IngridientDetail.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-  }).isRequired,
 }

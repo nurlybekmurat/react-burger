@@ -22,3 +22,24 @@ code {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+.EmptyIngredient {
+  width: 100%;
+}
+
+.EmptyIngredient .constructor-element__image {
+  display: none;
+}
+
+.EmptyIngredient .constructor-element__price {
+  display: none;
+}
+
+.EmptyIngredient .constructor-element__action {
+  display: none;
+}
+
+.EmptyIngredient .constructor-element__text {
+  justify-content: center;
+  padding-top: 12px;
+}

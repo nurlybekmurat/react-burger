@@ -2,10 +2,15 @@
   width: 100%;
 }
 
+.DropContainer {
+  height: fit-content;
+  border: 1px solid transparent;
+}
+
 .IngredientList {
   margin: 0;
   padding: 0;
-  height: calc(100vh - 536px);
+  max-height: calc(100vh - 536px);
   overflow-y: scroll;
 }
 
@@ -18,4 +23,11 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.IngredientItem {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

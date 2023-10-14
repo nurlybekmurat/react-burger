@@ -1,0 +1,1 @@
+export const getConstructorIngridients = state => state.ingredients.constructorIngredients;

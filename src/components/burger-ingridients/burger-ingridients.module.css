@@ -35,3 +35,8 @@
   text-align: center;
   min-height: 48px;
 }
+
+.ErrMessage {
+  text-align: center;
+  color: red;
+}
