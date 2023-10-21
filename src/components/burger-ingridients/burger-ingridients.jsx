@@ -1,12 +1,49 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientType } from '../../utils/prop-types';
+import { useState, useRef, useEffect } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Ingridients } from './ingridients/ingridients';
 import styles from './burger-ingridients.module.css';
+import { useSelector } from 'react-redux';
+import { Spinner } from '../../components/spinner/spinner';
 
-export const BurgerIngridients = ({data}) => {
+export const BurgerIngridients = () => {
   const [current, setCurrent] = useState('bun');
+  const isLoading = useSelector(state => state.ingredients.isLoading);  
+  const errMessage = useSelector(state => state.ingredients.errorText);  
+
+  const bunRef = useRef(null);
+  const sauceRef = useRef(null);
+  const mainRef = useRef(null);
+  const scrollRef = useRef(null)
+
+
+  useEffect(() => {
+    const targets = [
+      bunRef.current,
+      sauceRef.current,
+      mainRef.current
+    ]
+    const options = {
+      root: scrollRef.current,
+      rootMargin: '0px 0px -90% 0px'
+    }
+    const callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+         if (entry.target === bunRef.current) {
+          setCurrent('bun')
+         }
+         if (entry.target === sauceRef.current) {
+          setCurrent('sauce')
+         }
+         if (entry.target === mainRef.current) {
+          setCurrent('main')
+         }
+        }
+      })
+    }
+    const observer = new IntersectionObserver(callback, options);
+    targets.forEach(target => observer.observe(target));
+  }, []);
 
   return (
     <section className='BurgerIngridients'>
@@ -21,15 +58,17 @@ export const BurgerIngridients = ({data}) => {
           Начинки
         </Tab>
       </div>      
-      <div className={`${styles.Ingredients} custom-scroll`}>
-        <Ingridients data={data} type={'bun'} title={'Булки'} />
-        <Ingridients data={data} type={'sauce'} title={'Соусы'} />
-        <Ingridients data={data} type={'main'} title={'Начинки'} />
+      <div className={`${styles.Ingredients} custom-scroll`} ref={scrollRef} >
+      { isLoading &&
+          <Spinner/>
+        }
+        { errMessage &&
+          <p className={`${styles.ErrMessage} text text_type_main-default`}>{errMessage}</p>
+        }
+        <Ingridients type={'bun'} title={'Булки'} ref={bunRef} />
+        <Ingridients type={'sauce'} title={'Соусы'} ref={sauceRef} />
+        <Ingridients type={'main'} title={'Начинки'} ref={mainRef} />
       </div>
     </section>
   )
 }
-
-BurgerIngridients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-};
