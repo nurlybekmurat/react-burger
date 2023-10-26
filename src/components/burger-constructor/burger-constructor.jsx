@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { nanoid } from 'nanoid';
 import { postOrder } from '../../utils/utils';
+import { getLoginData } from '../../services/login/selectors';
+import { getConstructorIngridients } from '../../services/constructor-ingredients/selectors';
 import {
   getConstructorItem,
   deleteConstructorItem,
@@ -18,9 +20,9 @@ import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const data = useSelector(state => state.ingredientsConstructor.constructorList);
+  const data = useSelector(getConstructorIngridients);
+  const isUserAuth = useSelector(getLoginData) ? false : true;
   const dispatch = useDispatch();
-
   const moveElement = useCallback((dragIndex, hoverIndex) => {
     dispatch(moveConstructorItem(dragIndex, hoverIndex))
   }, [dispatch])
@@ -143,7 +145,7 @@ export const BurgerConstructor = () => {
         <span className="mr-10">
           <CurrencyIcon type="primary" />
         </span>
-        <Button onClick={handleOpen} htmlType="button" type="primary" size="medium">
+        <Button onClick={handleOpen} disabled={isUserAuth} htmlType="button" type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>

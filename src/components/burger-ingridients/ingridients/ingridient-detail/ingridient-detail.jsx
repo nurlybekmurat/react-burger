@@ -1,9 +1,7 @@
-import { useSelector } from 'react-redux';
+import { ingredientType } from '../../../../utils/prop-types';
 import styles from './ingridient-detail.module.css';
 
-export const IngridientDetail = () => {
-  const data = useSelector(state => state.ingredientDetail.ingredientDetail);
-
+export const IngridientDetail = ({data}) => {
   return(
     <div className={`${styles.Wrapper}`}>
       <img src={data.image_large} alt="" className="mb-4" />
@@ -46,4 +44,8 @@ export const IngridientDetail = () => {
       </ul>
     </div>
   )
+}
+
+IngridientDetail.propTypes = {
+  data: ingredientType.isRequired
 }

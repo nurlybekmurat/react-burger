@@ -7,11 +7,16 @@ import { useDrag } from "react-dnd";
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredientDetail, clearIngredientDetail } from '../../../../services/ingredient-detail/actions';
 import styles from './ingridient.module.css';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Ingridient = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const constructorList = useSelector(state => state.ingredientsConstructor.constructorList);
+  const ingredientDetail = useSelector(state => state.ingredientDetail.ingredientDetail);
+  const location = useLocation();
+
   const countValue = useMemo(() => {
     let count = 0;
     constructorList.forEach(item => {
@@ -49,29 +54,31 @@ export const Ingridient = ({data}) => {
 
   return(
     <>
-      <li className={`${styles.Card}`} onClick={handleOpen} >
-        {countValue > 0 &&
-          <div className={styles.Counter}>
-            <Counter id={data._id} count={countValue} size="default" />
-          </div>
-        }
-        <img 
-          className={`${styles.CardImage}`} 
-          src={data.image} alt="" 
-          ref={dragRef} 
-          style={{ cursor: didDrop ? 'grab' : 'default' }}
-        />
-        <span className={`${styles.CardCost} text text_type_main-default mb-1`}>
-          <CurrencyIcon type="primary" />
-          {data.price}
-        </span>
-        <h3 className={`${styles.CardTitle} text text_type_main-default`}>
-          {data.name}
-        </h3>
-      </li>
-      { isOpen &&
+      <Link to={`ingredients/${data._id}`} state={{ backgroundLocation: location }} className={styles.CardLink}>
+        <li className={`${styles.Card}`} onClick={handleOpen} >
+          {countValue > 0 &&
+            <div className={styles.Counter}>
+              <Counter id={data._id} count={countValue} size="default" />
+            </div>
+          }
+          <img 
+            className={`${styles.CardImage}`} 
+            src={data.image} alt="" 
+            ref={dragRef} 
+            style={{ cursor: didDrop ? 'grab' : 'default' }}
+          />
+          <span className={`${styles.CardCost} text text_type_main-default mb-1`}>
+            <CurrencyIcon type="primary" />
+            {data.price}
+          </span>
+          <h3 className={`${styles.CardTitle} text text_type_main-default`}>
+            {data.name}
+          </h3>
+        </li>
+      </Link>
+      { isOpen && 
         <Modal handleClose={handleClose} modalTitle={'Детали Ингридиента'}>
-          <IngridientDetail data={data} />
+          <IngridientDetail data={ingredientDetail} />
         </Modal>
       }
     </>
