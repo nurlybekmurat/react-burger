@@ -6,7 +6,7 @@ import {
 } from './actions';
 
 const initialState = {
-  loginData: {},
+  loginData: null,
   isLoading: false,
   errorText: '',
 }
@@ -20,10 +20,10 @@ export const loginReducer = (state = initialState, action) => {
       return { ...state, loginData: {...action.payload}, isLoading: false }
     }
     case LOGIN_FAILED: {
-      return { ...state, loginData: {}, isLoading: false, errorText: action.payload }
+      return { ...state, loginData: null, isLoading: false, errorText: action.payload }
     }
     case CLEAN_LOGIN_INFO: {
-      return { ...state, loginData: {}, isLoading: false, errorText: '' }
+      return { ...state, loginData: null, isLoading: false, errorText: '' }
     }
     default:
       return state

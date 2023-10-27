@@ -23,13 +23,13 @@ export const RegisterPage = () => {
   const registerHandler = (e) => {
     e.preventDefault();
     dispatch(register(inputNameRef.current.value, inputEmailRef.current.value, inputPassRef.current.value));
-    if (response.success) {
+    if (response !== null) {
       navigate('/login');
     }
   }
 
   useEffect(() => {
-    if (response.success) {
+    if (response !== null) {
       navigate('/login')
     }
   },[response])
@@ -39,7 +39,7 @@ export const RegisterPage = () => {
       <h1 className="text text_type_main-medium mb-4">
         Регистрация
       </h1>
-      <form onSubmit={registerHandler}>
+      <form className='Form' onSubmit={registerHandler}>
         <Input
           type={'text'}
           placeholder={'Имя'}

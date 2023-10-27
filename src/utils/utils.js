@@ -110,10 +110,13 @@ export const fetchWithRefresh = async (url, options) => {
   }
 }
 
-export const postOrder = async (body) => {
+export const postOrder = async (body, token) => {
   const response = await fetch(`${API_URL}orders`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
     body: JSON.stringify({
       ingredients: body
     })

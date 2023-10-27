@@ -17,56 +17,59 @@ export const LoginPage = () => {
   const onPassIconClick = () => {
     setIsPassType(!isPassType);
   }
-  const loginHandler = () => {
+  const loginHandler = (e) => {
+    e.preventDefault();
     dispatch(login(inputEmailRef.current.value, inputPassRef.current.value));
   }
   const { logOutRequest } = useSelector(state => state.logout);
 
   useEffect(() => {
-    if (loginData.success && !logOutRequest) {
+    if (loginData && !logOutRequest) {
       navigate('/profile')
     }
-  },[loginData.success, navigate, logOutRequest])
+  },[loginData, navigate, logOutRequest])
 
   return (
     <div className='PageWrapper'>
       <h1 className="text text_type_main-medium mb-4">
         Вход
       </h1>
-      <Input
-        type={'email'}
-        placeholder={'E-mail'}
-        onChange={e => setEmailValue(e.target.value)}
-        value={emailValue}
-        name={'name'}
-        error={false}
-        ref={inputEmailRef}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass="mb-6"
-      />
-      <Input
-        type={isPassType ? 'password' : 'text'}
-        placeholder={'Пароль'}
-        onChange={e => setPassValue(e.target.value)}
-        icon={ isPassType ? 'ShowIcon' : 'HideIcon'}
-        value={passValue}
-        name={'name'}
-        error={false}
-        ref={inputPassRef}
-        onIconClick={onPassIconClick}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass="mb-6"
-      />
-      <Button onClick={loginHandler} disabled={isLoading} htmlType="button" type="primary" size="medium">
-        Войти
-      </Button>
-      { errorText &&
-        <p className={`ErrorText text text_type_main-default text_color_inactive`}>
-          { errorText }
-        </p>
-      }
+      <form className='Form' onSubmit={loginHandler}>
+        <Input
+          type={'email'}
+          placeholder={'E-mail'}
+          onChange={e => setEmailValue(e.target.value)}
+          value={emailValue}
+          name={'name'}
+          error={false}
+          ref={inputEmailRef}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass="mb-6"
+        />
+        <Input
+          type={isPassType ? 'password' : 'text'}
+          placeholder={'Пароль'}
+          onChange={e => setPassValue(e.target.value)}
+          icon={ isPassType ? 'ShowIcon' : 'HideIcon'}
+          value={passValue}
+          name={'name'}
+          error={false}
+          ref={inputPassRef}
+          onIconClick={onPassIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass="mb-6"
+        />
+        <Button disabled={isLoading} htmlType="submit" type="primary" size="medium">
+          Войти
+        </Button>
+        { errorText &&
+          <p className={`ErrorText text text_type_main-default text_color_inactive`}>
+            { errorText }
+          </p>
+        }
+      </form>
       <p className="text text_type_main-default text_color_inactive mb-4 mt-20">
         Вы — новый пользователь? <Link className="Link" to={'/register'}>Зарегистрироваться</Link>
       </p>

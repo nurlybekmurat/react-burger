@@ -3,7 +3,7 @@ import { PASSWORD_RESET_REQUEST, PASSWORD_RESET_CLEAN_STATE, PASSWORD_RESET_FAIL
 const initialState = {
   passwordResetRequest: false,
   passwordResetFailed: false,
-  response: {}
+  response: null
 }
 
 export const passwordResetReduser = (state = initialState, action) => {
@@ -33,7 +33,7 @@ export const passwordResetReduser = (state = initialState, action) => {
       return {
         passwordResetRequest: false,
         passwordResetFailed: false,
-        response: {}
+        response: null
       }
     }
     default: {

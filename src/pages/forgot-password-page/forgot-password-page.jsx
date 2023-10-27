@@ -18,10 +18,14 @@ export const ForgotPasswordPage = () => {
   }
 
   useEffect(()=> {
-    if (success && isRequestSent && location.state?.from !== '/reset-password') {
-      navigate('/reset-password');
-    } else if (location.state?.from === '/reset-password') {
+    if(location.state?.from === '/reset-password') {
       dispatch(cleanRecoverPassword());
+      return;
+    }
+  
+    if (success && isRequestSent) {
+        navigate('/reset-password');
+        return
     }
   }, [dispatch, success, isRequestSent]);
 
