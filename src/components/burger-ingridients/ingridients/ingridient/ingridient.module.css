@@ -27,3 +27,8 @@
   top: 0;
   right: 0;
 }
+
+.CardLink {
+  text-decoration: none;
+  color: inherit;
+}

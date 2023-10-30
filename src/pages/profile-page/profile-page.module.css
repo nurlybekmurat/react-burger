@@ -1,0 +1,23 @@
+.Wrapper {
+  display: flex;
+}
+
+.NavSidebar {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  margin-right: 40px;
+}
+.NavSidebarLink {
+  padding: 17px 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.NavSidebarBtn {
+  padding: 17px 0;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}

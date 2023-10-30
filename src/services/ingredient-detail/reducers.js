@@ -4,7 +4,7 @@ import {
 } from './actions';
 
 const initialState = {
-  ingredientDetail: {}
+  ingredientDetail: null
 }
 
 export const ingredientDetailReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const ingredientDetailReducer = (state = initialState, action) => {
     case CLEAR_INGREDIENT_DETAIL: {
       return {
         ...state,
-        ingredientDetail: {}
+        ingredientDetail: null
       }
     }
     default: {

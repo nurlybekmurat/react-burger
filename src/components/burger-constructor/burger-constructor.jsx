@@ -1,12 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientItem } from './ingredient-item/ingredient-item';
 import { Modal } from '../modal/modal';
 import { OrderDetail } from './order-detail/order-detail';
 import { useSelector, useDispatch } from 'react-redux';
+import { getCookie } from '../../utils/utils';
 import { useDrop } from 'react-dnd';
 import { nanoid } from 'nanoid';
 import { postOrder } from '../../utils/utils';
+import { getUserInfo } from '../../services/user/actions';
+import { getConstructorIngridients } from '../../services/constructor-ingredients/selectors';
 import {
   getConstructorItem,
   deleteConstructorItem,
@@ -18,12 +21,19 @@ import styles from './burger-constructor.module.css';
 
 export const BurgerConstructor = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const data = useSelector(state => state.ingredientsConstructor.constructorList);
+  const data = useSelector(getConstructorIngridients);
+  const isUserAuth = useSelector(state => state.user.authChecked) ? false : true;
   const dispatch = useDispatch();
-
+  
   const moveElement = useCallback((dragIndex, hoverIndex) => {
     dispatch(moveConstructorItem(dragIndex, hoverIndex))
   }, [dispatch])
+
+  useEffect(() => {
+    if (getCookie('token')) {
+      dispatch(getUserInfo(getCookie('token')));
+    }
+  }, [])
 
   const [{ canDrop, isOver }, dropTarget] = useDrop(() => ({
     accept: 'ingredient',
@@ -52,10 +62,16 @@ export const BurgerConstructor = () => {
   }
 
   const handleOpen = () => {
-    const orderIds = data.map(item => item.data._id);
+    const orderIds = data.filter(item => {
+      return item.data.type !== 'bun'
+    });
+    const bun = data.find(item => item.type === 'bun');
+    orderIds.unshift(bun)
+    orderIds.push(bun)
+    const filteredOrderIds = orderIds.map(item => item.data._id);
     setIsOpen(true);
     dispatch(getOrderRequest());
-    postOrder(orderIds).then(data => {
+    postOrder(filteredOrderIds, getCookie('token')).then(data => {
       dispatch(getOrderDetail(data.order.number)) 
     }).catch((err) => dispatch(getOrderFailed(err.message)));
   }
@@ -143,7 +159,7 @@ export const BurgerConstructor = () => {
         <span className="mr-10">
           <CurrencyIcon type="primary" />
         </span>
-        <Button onClick={handleOpen} htmlType="button" type="primary" size="medium">
+        <Button onClick={handleOpen} disabled={isUserAuth} htmlType="button" type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>
