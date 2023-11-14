@@ -9,6 +9,7 @@ export const resetPassword = (pass, token) => (dispatch) => {
   dispatch({ type: PASSWORD_RESET_REQUEST })
   resetPasswordHelper(pass, token)
   .then((data) => { 
+    console.log(data);
     dispatch({ type: PASSWORD_RESET_SUCCESS, payload: data }); 
   })
   .then(() => { dispatch({ type: PASSWORD_RESET_CLEAN_STATE }) })

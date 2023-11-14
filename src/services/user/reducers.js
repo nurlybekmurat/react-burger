@@ -4,7 +4,6 @@ import {
 } from "./actions";
 
 const initialState = {
-  userRefreshRequest: false,
   userRefreshFailed: false,
   userInfoRequest: false,
   authChecked: false,
