@@ -25,7 +25,7 @@ export const LoginPage: FC = () => {
 
   useEffect(() => {
     if (loginData && !logOutRequest) {
-      navigate('/profile')
+      navigate(-1)
     }
   },[loginData, navigate, logOutRequest])
 

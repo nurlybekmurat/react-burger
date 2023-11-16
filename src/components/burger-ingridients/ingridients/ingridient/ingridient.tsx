@@ -1,9 +1,7 @@
-import { useState, useMemo, FC } from 'react';
-import { Modal } from '../../../modal/modal';
-import { IngridientDetail } from '../ingridient-detail/ingridient-detail';
+import {  useMemo, FC } from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from "react-dnd";
-import { getIngredientDetail, clearIngredientDetail } from '../../../../services/ingredient-detail/actions';
+import { getIngredientDetail } from '../../../../services/ingredient-detail/actions';
 import { useAppSelector, useAppDispatch  } from '../../../../hooks/index';
 import styles from './ingridient.module.css';
 import { useLocation } from 'react-router-dom';
@@ -15,10 +13,8 @@ interface IProps {
 }
 
 export const Ingridient: FC <IProps>= ({data}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const constructorList = useAppSelector((state: any) => state.ingredientsConstructor.constructorList);
-  const ingredientDetail = useAppSelector(state => state.ingredientDetail.ingredientDetail);
   const location = useLocation();
 
   const countValue = useMemo(() => {
@@ -47,13 +43,7 @@ export const Ingridient: FC <IProps>= ({data}) => {
   }), []);
 
   const handleOpen = () => {
-    setIsOpen(true);
     dispatch(getIngredientDetail(data))
-  }
-
-  const handleClose = () => {
-    setIsOpen(false);
-    dispatch(clearIngredientDetail())
   }
 
   return(
@@ -83,11 +73,6 @@ export const Ingridient: FC <IProps>= ({data}) => {
           </h3>
         </li>
       </Link>
-      { isOpen && 
-        <Modal handleClose={handleClose} modalTitle={'Детали Ингридиента'}>
-          <IngridientDetail data={ingredientDetail} />
-        </Modal>
-      }
     </>
   )
 }

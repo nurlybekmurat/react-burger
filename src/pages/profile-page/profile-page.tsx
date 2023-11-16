@@ -1,19 +1,25 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { logOut } from '../../services/logout/actions';
-import { useAppDispatch  } from '../../hooks/index';
+import { useAppDispatch, useAppSelector  } from '../../hooks/index';
 import { getCookie } from '../../utils/utils';
 import styles from './profile-page.module.css';
+import { Modal } from '../../components/modal/modal';
 
 
 export const ProfilePage: FC = () => {
   const dispatch = useAppDispatch();
   const token = getCookie('refreshToken');
   const navigate = useNavigate();
+  const { logOutFailed } = useAppSelector(state => state.logout);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = () => {
     dispatch(logOut(token));
-    if (token) {
+    if (logOutFailed) {
+      setIsOpen(!isOpen);
+    }
+    if (token && !logOutFailed) {
       navigate('/');
     }
   }
@@ -39,6 +45,13 @@ export const ProfilePage: FC = () => {
         </p>
       </div>
       <Outlet />
+      { isOpen && logOutFailed &&
+        <Modal handleClose={() => setIsOpen(false)}>
+          <p className="text text_type_main-default">
+            Ошибка
+          </p>
+        </Modal>
+      }
     </div>
   )
 }

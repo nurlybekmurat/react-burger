@@ -10,10 +10,6 @@ interface IProps {
   modalTitle?: string;
 }
 
-interface KeyboardEvent {
-  key: string;
-}
-
 export const Modal: FC<IProps> = ({ children, handleClose, modalTitle='' }) => {
   useEffect(() => {
     const closeOnEscapeKey = (e: KeyboardEvent) => e.key === "Escape" ? handleClose() : null;

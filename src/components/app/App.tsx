@@ -4,7 +4,7 @@ import { AppHeader } from '../app-header/app-header';
 import { getIngredients } from '../../services/ingredients/actions';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Routes, Route, useLocation  } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { LoginPage } from '../../pages/login-page/login-page';
 import { NotFoundPage } from '../../pages/not-found-page/not-found-page';
@@ -20,13 +20,18 @@ import { OrderList } from '../../pages/order-list/order-list';
 import { IngredientPage } from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/utils';
 import { useAppSelector, useAppDispatch  } from '../../hooks/index';
+import { Modal } from '../modal/modal';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const state = location.state;
+  const state = location.state as { backgroundLocation?: Location };
   const isAllowed = getCookie('token') ? true : false;
-  const forgotPasswordState = useAppSelector(state => state.recoverPassword.emailRecoverSuccess)
+  const forgotPasswordState = useAppSelector(state => state.recoverPassword.emailRecoverSuccess);
+  const navigate = useNavigate()
+  const handleClose = () => {
+    navigate(-1)
+  }
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -77,6 +82,15 @@ const App: FC = () => {
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/order-list" element={<OrderList />} />
           </Routes>
+          { state?.backgroundLocation && (
+            <Routes location={location}>
+              <Route path="/ingredients/:id" element={
+                <Modal handleClose={handleClose} modalTitle={'Детали ингридиента'}>
+                  <IngredientPage />
+                </Modal>}
+              />
+            </Routes>
+          )}
         </Layout>
       </div>
     </DndProvider>

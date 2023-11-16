@@ -2,8 +2,8 @@ import { deleteCookie } from "../../utils/utils";
 import { LOG_OUT_REQUEST, LOG_OUT_FAILED, LOG_OUT_SUCCESS } from "./actions";
 
 const initialState = {
-    logOutRequest: false,
-    logOutFailed: false,
+  logOutRequest: false,
+  logOutFailed: false,
 }
 
 export const logOutReduser = (state = initialState, action) => {
@@ -12,7 +12,7 @@ export const logOutReduser = (state = initialState, action) => {
       return {
         ...state,
         logOutRequest: true,
-        logOutFailed: false
+        logOutFailed: false,
       }
     }
     case LOG_OUT_SUCCESS: {
@@ -24,12 +24,10 @@ export const logOutReduser = (state = initialState, action) => {
       }
     }
     case LOG_OUT_FAILED: {
-      deleteCookie('token');
-      deleteCookie('refreshToken');
       return {
         ...state,
         logOutRequest: false,
-        logOutFailed: true
+        logOutFailed: true,
       }
     }
     default: {

@@ -11,74 +11,17 @@ export const checkResponse = <T>(response: Response): Promise<T> => {
   return response.ok ? response.json() : response.json().then((err) => Promise.reject(err));
 }
 
-export const loadPost = async (url: string) => {
-  const response = await fetch(url);
-  return await checkResponse(response);
-}
-
-export const registerUser = async (name: string, email: string, password: string) => {
-  const response = await fetch(`${API_URL}auth/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    body: JSON.stringify({
-      'name': name,
-      'email': email,
-      'password': password,
-    })
-  });
-  return await checkResponse(response);
-}
-
-export const recoverPasswordHelper = async (email: string) => {
-  const response = await fetch(`${API_URL}password-reset`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: email
-    })
-  });
-  return await checkResponse(response);
-}
-
-export const resetPasswordHelper = async (pass: string, token: string) => {
-  const response = await fetch(`${API_URL}password-reset/reset`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      "password": pass,
-      "token": token
-    })
-  });
-  return await checkResponse(response);
-}
-
-
-export const loginUser = async (email: string, password: string) => {
-  const response = await fetch(`${API_URL}auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    },
-    body: JSON.stringify({
-      'email': email,
-      'password': password,
-    })
-  });
-  return await checkResponse(response);
+export const request = (endpoint: RequestInfo, options: RequestInit) => {
+  return fetch(`${API_URL}${endpoint}`, options).then(res => checkResponse(res))
 }
 
 export const getUser = async (token: string) => {
-  const response = await fetch(`${API_URL}auth/user`, {
+  return await request('auth/user', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
     },
   });
-  return await checkResponse(response);
 }
 
 const refreshToken = (token: string) => {

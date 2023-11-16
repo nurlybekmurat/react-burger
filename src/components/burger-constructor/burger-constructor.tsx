@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ConstructorElement, CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientItem } from './ingredient-item/ingredient-item';
 import { Modal } from '../modal/modal';
@@ -8,6 +9,7 @@ import { useDrop } from 'react-dnd';
 import { nanoid } from 'nanoid';
 import { postOrder } from '../../utils/utils';
 import { getUserInfo } from '../../services/user/actions';
+import { getUserAuth } from '../../services/user/selectors';
 import { getConstructorIngridients } from '../../services/constructor-ingredients/selectors';
 import {
   getConstructorItem,
@@ -28,7 +30,8 @@ type TConstructorElementProps = {
 };
 
 export const BurgerConstructor: FC<TConstructorElementProps> = () => {
-  const isUserAuth = !!useAppSelector((state: any) => state.user.authChecked);
+  const navigate = useNavigate();
+  const isUserAuth = !!useAppSelector(getUserAuth);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const data = useAppSelector(getConstructorIngridients);
   const dispatch = useAppDispatch();
@@ -70,12 +73,17 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
   }
 
   const handleOpen = () => {
+    if (!isUserAuth) {
+      navigate('/login');
+    }
+
     const orderIds = data.filter((item: TElementState) => {
       return item.data.type !== 'bun'
     });
     const bun = data.find((item: TElementState) => item.type === 'bun');
-    orderIds.unshift(bun)
-    orderIds.push(bun)
+    orderIds.unshift(bun);
+    orderIds.push(bun);
+    if (data.length === 0) return
     const filteredOrderIds = orderIds.map((item: TElementState) => item.data._id);
     setIsOpen(true);
     dispatch(getOrderRequest());
@@ -173,7 +181,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
         <span className="mr-10">
           <CurrencyIcon type="primary" />
         </span>
-        <Button onClick={handleOpen} disabled={!isUserAuth} htmlType="button" type="primary" size="medium">
+        <Button onClick={handleOpen} disabled={data.length === 0} htmlType="button" type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>
