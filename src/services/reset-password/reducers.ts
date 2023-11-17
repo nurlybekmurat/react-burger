@@ -1,12 +1,20 @@
 import { PASSWORD_RESET_REQUEST, PASSWORD_RESET_CLEAN_STATE, PASSWORD_RESET_FAILED, PASSWORD_RESET_SUCCESS } from "./actions";
 
+type TResetPasswordState = {
+  passwordResetRequest: boolean,
+  passwordResetFailed: boolean,
+  response?: {
+    success: boolean
+  } | null
+}
+
 const initialState = {
   passwordResetRequest: false,
   passwordResetFailed: false,
   response: null
 }
 
-export const passwordResetReduser = (state = initialState, action) => {
+export const passwordResetReduser = (state: TResetPasswordState = initialState, action: any): TResetPasswordState => {
   switch (action.type) {
     case PASSWORD_RESET_REQUEST: {
       return {

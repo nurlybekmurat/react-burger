@@ -26,9 +26,6 @@ export const Modal: FC<IProps> = ({ children, handleClose, modalTitle='' }) => {
         <button onClick={handleClose} className={styles.ModalCloseBtn}>
           <CloseIcon type="primary" />
         </button>
-        <h2 className={`${styles.ModalTitle} text text_type_main-large mb-4`}>
-          {modalTitle}
-        </h2>
         <div className="modal-content">{children}</div>
       </div>
     </>,

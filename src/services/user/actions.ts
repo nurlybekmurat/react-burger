@@ -1,15 +1,21 @@
 import { fetchWithRefresh } from "../../utils/utils";
 import { API_URL } from "../../constants/constants";
+import { AppDispatch, AppThunk } from "../store";
 
-export const REFRESH_USER_INFO_REQUEST = "REFRESH_USER_INFO_REQUEST";
-export const REFRESH_USER_INFO_SUCCESS = "REFRESH_USER_INFO_SUCCESS";
-export const REFRESH_USER_INFO_FAILED = "REFRESH_USER_INFO_FAILED";
-export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
-export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
-export const CLEAN_USER_INFO = "CLEAN_USER_INFO";
+export const REFRESH_USER_INFO_REQUEST: "REFRESH_USER_INFO_REQUEST" = "REFRESH_USER_INFO_REQUEST";
+export const REFRESH_USER_INFO_SUCCESS: "REFRESH_USER_INFO_SUCCESS" = "REFRESH_USER_INFO_SUCCESS";
+export const REFRESH_USER_INFO_FAILED: "REFRESH_USER_INFO_FAILED" = "REFRESH_USER_INFO_FAILED";
+export const GET_USER_INFO_REQUEST: "GET_USER_INFO_REQUEST" = "GET_USER_INFO_REQUEST";
+export const GET_USER_INFO_SUCCESS: "GET_USER_INFO_SUCCESS" = "GET_USER_INFO_SUCCESS";
+export const GET_USER_INFO_FAILED: "GET_USER_INFO_FAILED" = "GET_USER_INFO_FAILED";
+export const CLEAN_USER_INFO: "CLEAN_USER_INFO" = "CLEAN_USER_INFO";
 
-export const refreshUserInfo = (userName, email, pass, token) => (dispatch) => {
+
+export interface ICleanUserInfo {
+  readonly type: typeof CLEAN_USER_INFO
+}
+export const refreshUserInfo: AppThunk = (userName: string, email: string, pass: string, token: string) => {
+  return function (dispatch: AppDispatch) {
   dispatch({
     type: REFRESH_USER_INFO_REQUEST,
   })
@@ -39,9 +45,11 @@ export const refreshUserInfo = (userName, email, pass, token) => (dispatch) => {
       type: REFRESH_USER_INFO_FAILED
     })
   })
+  }
 }
 
-export const getUserInfo = (token) => (dispatch) => {
+export const getUserInfo: AppThunk = (token: string) => {
+  return function (dispatch: AppDispatch) {
   dispatch({
     type: GET_USER_INFO_REQUEST
   })
@@ -68,6 +76,7 @@ export const getUserInfo = (token) => (dispatch) => {
       })
     }
   )
+  }
 }
 
 export const cleanUserInfo = () => {

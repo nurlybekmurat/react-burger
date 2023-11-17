@@ -63,26 +63,6 @@ export const fetchWithRefresh = async (url: string, options: any) => {
   }
 }
 
-export const postOrder = async (body: TElement[], token: string) => {
-  const response = await fetch(`${API_URL}orders`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify({
-      ingredients: body
-    })
-  });
-  if (!response.ok) {
-    const message = `Ошибка: ${response.status}`;
-    throw new Error(message);
-  }
-
-  const data = await response.json();
-  return data;
-}
-
 export function setCookie(name: string, value: string | null, age?: number) {
   if (value === null) {
     return document.cookie = `${name}=${'value'}; path=/; max-age=${age}`

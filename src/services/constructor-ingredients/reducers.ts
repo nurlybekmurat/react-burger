@@ -1,22 +1,28 @@
+import { TElementState } from '../../utils/types';
 import {
   GET_CONSTRUCTOR_ITEM,
   DELETE_CONSTRUCTOR_ITEM,
   GET_BUN_ITEM, 
   MOVE_CONSTRUCTOR_ITEM,
-  CLEAR_CONSTRUCTOR_LIST
+  CLEAR_CONSTRUCTOR_LIST,
+  TBurgerConstructorActions
 } from './actions';
 import update from 'immutability-helper';
+
+type TConstructorState = {
+  constructorList: TElementState[]
+}
 
 const initialState = {
   constructorList: []
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state: TConstructorState = initialState, action: TBurgerConstructorActions ) => {
   switch (action.type) {
     case GET_CONSTRUCTOR_ITEM: {
       return {
         ...state,
-        constructorList: !state.constructorList.find(element => element.type === 'bun') || action.element.type !== 'bun'
+        constructorList: state.constructorList.find((item: TElementState) => item.type === 'bun') || action.element.type !== 'bun'
         ? [action.element, ...state.constructorList]
         : [...state.constructorList]
       }
@@ -25,7 +31,7 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorList: action.element.type !== 'bun'
-          ? state.constructorList.filter((element) => element.id !== action.element.id)
+          ? state.constructorList.filter((element: TElementState) => element.id !== action.element.id)
           : [...state.constructorList]
       }
     }
@@ -33,7 +39,7 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorList: action.element.type === 'bun'
-          ? [...state.constructorList.filter(element => element.type !== 'bun'), action.element]
+          ? [...state.constructorList.filter((element: TElementState) => element.type !== 'bun'), action.element]
           : [...state.constructorList]
       }
     }

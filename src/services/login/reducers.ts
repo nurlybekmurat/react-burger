@@ -1,3 +1,4 @@
+import { setCookie } from '../../utils/utils';
 import { 
   LOGIN_REQUEST, 
   LOGIN_SUCCESS, 
@@ -5,18 +6,26 @@ import {
   CLEAN_LOGIN_INFO,
 } from './actions';
 
+// type TLoginState = {
+//   loginData: {},
+//   isLoading: boolean,
+//   errorText: string,
+// }
+
 const initialState = {
   loginData: null,
   isLoading: false,
   errorText: '',
 }
 
-export const loginReducer = (state = initialState, action) => {
+export const loginReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }
     }
     case LOGIN_SUCCESS: {
+      setCookie('refreshToken', action.payload.refreshToken);
+      setCookie('token', action.payload.accessToken);
       return { ...state, loginData: {...action.payload}, isLoading: false }
     }
     case LOGIN_FAILED: {

@@ -19,7 +19,7 @@ export const ProfileSettings: FC = () => {
   const inputPassRef = useRef<HTMLInputElement>(null);
 
   useEffect(()=> {
-    dispatch(getUserInfo(getCookie('token')));
+    dispatch(getUserInfo(getCookie('refreshToken')!));
     setNameValue(userName);
     setEmailValue(userEmail);
   }, [dispatch, userName, userEmail]);
@@ -45,7 +45,7 @@ export const ProfileSettings: FC = () => {
   const saveBtnHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsInputsDifferent(false);
-    dispatch(refreshUserInfo(nameValue, emailValue, passValue, getCookie('token')));
+    dispatch(refreshUserInfo(nameValue, emailValue, passValue, getCookie('token')!));
   }
 
   return (

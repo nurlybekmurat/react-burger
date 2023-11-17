@@ -1,17 +1,19 @@
 import { FC } from 'react';
 import { TElement } from '../../../../utils/types';
 import styles from './ingridient-detail.module.css';
+import { useAppSelector } from '../../../../hooks';
+import { useParams } from 'react-router-dom';
 
-interface IProps {
-  data: TElement
-}
 
-export const IngridientDetail: FC <IProps> = ({data}) => {
+export const IngridientDetail: FC = () => {
+  const { id } = useParams();
+  const data = useAppSelector(state => state.ingredients.ingredients).find((item: TElement) => item._id === id);
   return(
     <div className={`${styles.Wrapper}`}>
-      <img src={data.image_large} alt="" className="mb-4" />
+      <h1 className="text text_type_main-large">Детали ингредиента</h1>
+      <img src={data?.image_large} alt="" className="mb-4" />
       <p className={`${styles.Title} text text_type_main-medium mb-8`}>
-        {data.name}
+        {data?.name}
       </p>
       <ul className={`${styles.List}`}>
         <li className={`${styles.Item}`}>
@@ -19,7 +21,7 @@ export const IngridientDetail: FC <IProps> = ({data}) => {
             Калории,ккал
           </p>
           <p className={`${styles.Title} text text_type_digits-default text_color_inactive`}>
-            {data.calories}
+            {data?.calories}
           </p>
         </li>
         <li className={`${styles.Item}`}>
@@ -27,7 +29,7 @@ export const IngridientDetail: FC <IProps> = ({data}) => {
             Белки, г
           </p>
           <p className={`${styles.Title} text text_type_digits-default text_color_inactive`}>
-            {data.proteins}
+            {data?.proteins}
           </p>
         </li>
         <li className={`${styles.Item}`}>
@@ -35,7 +37,7 @@ export const IngridientDetail: FC <IProps> = ({data}) => {
             Жиры, г
           </p>
           <p className={`${styles.Title} text text_type_digits-default text_color_inactive`}>
-            {data.fat}
+            {data?.fat}
           </p>
         </li>
         <li className={`${styles.Item}`}>
@@ -43,7 +45,7 @@ export const IngridientDetail: FC <IProps> = ({data}) => {
             Углеводы, г
           </p>
           <p className={`${styles.Title} text text_type_digits-default text_color_inactive`}>
-            {data.carbohydrates}
+            {data?.carbohydrates}
           </p>
         </li>
       </ul>

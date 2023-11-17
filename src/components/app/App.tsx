@@ -21,6 +21,8 @@ import { IngredientPage } from '../../pages/ingredient-page/ingredient-page';
 import { getCookie } from '../../utils/utils';
 import { useAppSelector, useAppDispatch  } from '../../hooks/index';
 import { Modal } from '../modal/modal';
+import { IngridientDetail } from '../burger-ingridients/ingridients/ingridient-detail/ingridient-detail';
+
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -86,7 +88,7 @@ const App: FC = () => {
             <Routes location={location}>
               <Route path="/ingredients/:id" element={
                 <Modal handleClose={handleClose} modalTitle={'Детали ингридиента'}>
-                  <IngredientPage />
+                  <IngridientDetail /> 
                 </Modal>}
               />
             </Routes>

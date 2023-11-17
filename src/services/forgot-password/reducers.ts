@@ -1,5 +1,13 @@
 import { GET_PASSWORD_SUCCESS, GET_PASSWORD_REQUEST, GET_PASSWORD_FAILED, GET_PASSWORD_CLEAN, RECOVER_PASSWORD_CLEAN } from './actions';
 
+type TForgotPasswordState = {
+  isLoading: boolean,
+  success: boolean,
+  isRequestSent: boolean,
+  emailRecoverSuccess: boolean, 
+  errorText: string
+}
+
 const initialState = {
   isLoading: false,
   success: false,
@@ -8,7 +16,7 @@ const initialState = {
   errorText: ''
 }
 
-export const recoverPasswordReducer = (state = initialState, action) => {
+export const recoverPasswordReducer = (state: TForgotPasswordState = initialState, action: any): TForgotPasswordState => {
   switch (action.type) {
     case GET_PASSWORD_REQUEST: {
       return {  

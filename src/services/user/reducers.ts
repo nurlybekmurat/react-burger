@@ -3,7 +3,18 @@ import {
   CLEAN_USER_INFO, GET_USER_INFO_REQUEST, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS
 } from "./actions";
 
+export type TUserState = {
+  userRefreshRequest: boolean,
+  userRefreshFailed: boolean,
+  userInfoRequest: boolean,
+  authChecked: boolean,
+  userInfoFailed: boolean,
+  userName: string,
+  userEmail: string
+}
+
 const initialState = {
+  userRefreshRequest: false,
   userRefreshFailed: false,
   userInfoRequest: false,
   authChecked: false,
@@ -12,7 +23,7 @@ const initialState = {
   userEmail: ''
 }
 
-export const userReduser = (state = initialState, action) => {
+export const userReduser = (state: TUserState = initialState, action: any): TUserState => {
   switch (action.type) {
     case REFRESH_USER_INFO_REQUEST: {
       return {
@@ -62,6 +73,11 @@ export const userReduser = (state = initialState, action) => {
     }
     case CLEAN_USER_INFO: {
       return {
+        userInfoRequest: false,
+        authChecked: false,
+        userInfoFailed: false,
+        userRefreshRequest: false,
+        userRefreshFailed: false,
         userName: '',
         userEmail: ''
       }

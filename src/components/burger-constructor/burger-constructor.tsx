@@ -7,7 +7,7 @@ import { OrderDetail } from './order-detail/order-detail';
 import { getCookie } from '../../utils/utils';
 import { useDrop } from 'react-dnd';
 import { nanoid } from 'nanoid';
-import { postOrder } from '../../utils/utils';
+import { postOrder } from '../../services/order-detail/actions';
 import { getUserInfo } from '../../services/user/actions';
 import { getUserAuth } from '../../services/user/selectors';
 import { getConstructorIngridients } from '../../services/constructor-ingredients/selectors';
@@ -19,7 +19,7 @@ import {
 } from '../../services/constructor-ingredients/actions';
 import { getOrderDetail, getOrderFailed, getOrderRequest } from '../../services/order-detail/actions';
 import { useAppSelector, useAppDispatch  } from '../../hooks/index';
-import { TElement, TElementState } from '../../utils/types'
+import { TElement, TElementState, TOrderResponse } from '../../utils/types'
 import styles from './burger-constructor.module.css';
 
 type TConstructorElementProps = {
@@ -42,13 +42,13 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
 
   useEffect(() => {
     if (getCookie('token')) {
-      dispatch(getUserInfo(getCookie('token')));
+      dispatch(getUserInfo(getCookie('token')!));
     }
   }, [])
 
   const [{ canDrop, isOver }, dropTarget] = useDrop(() => ({
     accept: 'ingredient',
-    drop: (item: TElement) => addConstructorElement(item),
+    drop: (item: TElementState) => addConstructorElement(item),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
@@ -63,7 +63,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
     border = '1px solid #4C4CFF';
   }
 
-  const addConstructorElement = (element: TElement) => {
+  const addConstructorElement = (element: TElementState) => {
     element = { ...element, id: nanoid() }
     dispatch(getConstructorItem(element))
     dispatch(getBunItem(element))
@@ -80,16 +80,14 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
     const orderIds = data.filter((item: TElementState) => {
       return item.data.type !== 'bun'
     });
-    const bun = data.find((item: TElementState) => item.type === 'bun');
+    const bun = data.find((item: TElementState) => item.type === 'bun')!;
     orderIds.unshift(bun);
     orderIds.push(bun);
     if (data.length === 0) return
     const filteredOrderIds = orderIds.map((item: TElementState) => item.data._id);
     setIsOpen(true);
     dispatch(getOrderRequest());
-    postOrder(filteredOrderIds, getCookie('token')!).then(data => {
-      dispatch(getOrderDetail(data.order.number)) 
-    }).catch((err) => dispatch(getOrderFailed(err.message)));
+    dispatch(postOrder(filteredOrderIds, getCookie('token')!))
   }
   
   return (

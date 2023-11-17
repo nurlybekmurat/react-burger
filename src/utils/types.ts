@@ -39,6 +39,12 @@ export type TOrderOptions = {
   _id: string
 }
 
+export type TOrderResponse = {
+  name: string,
+  order: TOrderOptions,
+  success: boolean
+}
+
 export type TUserInfo = {
   success: boolean
   user: {

@@ -11,9 +11,8 @@ export const IngredientPage: FC = () => {
 
   return (
     <div className={styles.Wrapper}>
-      <h1 className="text text_type_main-large">Детали ингредиента</h1>
       { ingredient &&
-        <IngridientDetail data={ingredient} /> 
+        <IngridientDetail /> 
       }
     </div>
   )
