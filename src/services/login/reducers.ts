@@ -1,24 +1,26 @@
+import { TUserLogin } from '../../utils/types';
 import { setCookie } from '../../utils/utils';
 import { 
   LOGIN_REQUEST, 
   LOGIN_SUCCESS, 
   LOGIN_FAILED,
   CLEAN_LOGIN_INFO,
+  TLoginActions,
 } from './actions';
 
-// type TLoginState = {
-//   loginData: {},
-//   isLoading: boolean,
-//   errorText: string,
-// }
+type TState = {
+  loginData: TUserLogin | undefined,
+  isLoading: boolean,
+  errorText: string,
+}
 
 const initialState = {
-  loginData: null,
+  loginData: undefined,
   isLoading: false,
   errorText: '',
 }
 
-export const loginReducer = (state = initialState, action: any) => {
+export const loginReducer = (state: TState = initialState, action: TLoginActions): TState => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }
@@ -29,10 +31,10 @@ export const loginReducer = (state = initialState, action: any) => {
       return { ...state, loginData: {...action.payload}, isLoading: false }
     }
     case LOGIN_FAILED: {
-      return { ...state, loginData: null, isLoading: false, errorText: action.payload }
+      return { ...state, loginData: undefined, isLoading: false, errorText: action.payload }
     }
     case CLEAN_LOGIN_INFO: {
-      return { ...state, loginData: null, isLoading: false, errorText: '' }
+      return { ...state, loginData: undefined, isLoading: false, errorText: '' }
     }
     default:
       return state

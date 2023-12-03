@@ -1,6 +1,6 @@
 import { 
   REFRESH_USER_INFO_REQUEST, REFRESH_USER_INFO_FAILED, REFRESH_USER_INFO_SUCCESS,
-  CLEAN_USER_INFO, GET_USER_INFO_REQUEST, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS
+  CLEAN_USER_INFO, GET_USER_INFO_REQUEST, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS, TUserActions
 } from "./actions";
 
 export type TUserState = {
@@ -23,7 +23,7 @@ const initialState = {
   userEmail: ''
 }
 
-export const userReduser = (state: TUserState = initialState, action: any): TUserState => {
+export const userReduser = (state: TUserState = initialState, action: TUserActions): TUserState => {
   switch (action.type) {
     case REFRESH_USER_INFO_REQUEST: {
       return {
@@ -36,8 +36,8 @@ export const userReduser = (state: TUserState = initialState, action: any): TUse
       return {
         ...state,
         userRefreshRequest: false,
-        userName: action.res.user.name,
-        userEmail: action.res.user.email
+        userName: action.payload.user.name,
+        userEmail: action.payload.user.email
       }
     }
     case REFRESH_USER_INFO_FAILED: {
@@ -59,8 +59,8 @@ export const userReduser = (state: TUserState = initialState, action: any): TUse
         ...state,
         userInfoRequest: false,
         authChecked: true,
-        userName: action.res.user.name,
-        userEmail: action.res.user.email
+        userName: action.payload.user.name,
+        userEmail: action.payload.user.email
       }
     }
     case GET_USER_INFO_FAILED: {
