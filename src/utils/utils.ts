@@ -1,20 +1,10 @@
 import { API_URL } from '../constants/constants';
-import { TElementIngredient } from './types';
+import { TElement } from './types';
 
 type TRefreshData = {
   success: boolean,
   accessToken: string,
   refreshToken: string
-}
-
-export const getIngredientImages = (ingredients: Array<TElementIngredient>, ids: Array<string>) => {
-  const urls: Array<TElementIngredient> = [];
-  ingredients.forEach(item => {
-    if (ids.includes(item._id)) {
-      urls.push(item)
-    }
-  })
-  return urls;
 }
 
 export const checkResponse = <T>(response: Response): Promise<T> => {

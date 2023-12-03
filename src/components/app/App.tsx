@@ -22,7 +22,6 @@ import { getCookie } from '../../utils/utils';
 import { useAppSelector, useAppDispatch  } from '../../hooks/index';
 import { Modal } from '../modal/modal';
 import { IngridientDetail } from '../burger-ingridients/ingridients/ingridient-detail/ingridient-detail';
-import { OrderInfo } from '../order-info/order-info';
 
 
 const App: FC = () => {
@@ -84,8 +83,6 @@ const App: FC = () => {
             </Route>
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/order-list" element={<OrderList />} />
-            <Route path='/feed/:feedId' element={<OrderInfo />}/>
-            <Route path='/profile/orders/:orderId' element={<OrderInfo />}/>
           </Routes>
           { state?.backgroundLocation && (
             <Routes location={location}>
@@ -94,16 +91,6 @@ const App: FC = () => {
                   <IngridientDetail /> 
                 </Modal>}
               />
-              <Route path='/profile/orders/:orderId' element={
-                <Modal handleClose={handleClose}>
-                  <OrderInfo />
-                  </Modal>
-                }/>
-                <Route path='/feed/:feedId' element={
-                  <Modal handleClose={handleClose}>
-                    <OrderInfo />
-                  </Modal>}
-                /> 
             </Routes>
           )}
         </Layout>

@@ -13,11 +13,6 @@ import { recoverPasswordReducer } from './forgot-password/reducers';
 import { passwordResetReduser } from './reset-password/reducers';
 import { TBurgerConstructorActions } from "./constructor-ingredients/actions";
 import { ICleanUserInfo } from "./user/actions";
-import { socketMiddleware } from "./middleware/customMiddleware";
-import { orderFeedActions, TOrderFeedActions } from "./order-feed/actions";
-import { orderHistoryActions, TOrderHistoryActions } from "./order-history/actions";
-import { orderFeedReducer } from "./order-feed/reducers";
-import { orderHistoryReducer } from "./order-history/reducers";
 // import { customMiddleware } from '../services/middleware/customMiddleware';
 
 const rootReducer = combineReducers({
@@ -30,14 +25,12 @@ const rootReducer = combineReducers({
   login: loginReducer,
   logout: logOutReduser,
   recoverPassword: recoverPasswordReducer,
-  resetPassword: passwordResetReduser,
-  feedSocket: orderFeedReducer,
-  historySocket: orderHistoryReducer
+  resetPassword: passwordResetReduser
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: [thunk, socketMiddleware(orderFeedActions), socketMiddleware(orderHistoryActions)],
+  middleware: [thunk],
   enhancers: [compose]
   // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(customMiddleware())
 })
@@ -46,13 +39,8 @@ export default store
 export type IRootState = ReturnType<typeof rootReducer>
 export type RootState = ReturnType<typeof store.getState>
 
-type TApplicationActions = TWsApplicationActions | TBurgerConstructorActions | ICleanUserInfo; 
+type TApplicationActions = | TBurgerConstructorActions | ICleanUserInfo; 
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >
-
-export type TWsApplicationActions = 
-| TOrderFeedActions
-| TOrderHistoryActions
-
 export type AppDispatch = typeof store.dispatch

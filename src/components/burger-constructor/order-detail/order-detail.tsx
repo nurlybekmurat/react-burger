@@ -2,18 +2,17 @@ import { FC } from 'react';
 import { useAppSelector  } from '../../../hooks/index';
 import styles from './order-detail.module.css';
 import { Spinner } from '../../spinner/spinner';
- 
+
 export const OrderDetail: FC = () => {
-  const { order } = useAppSelector(state => state.orderDetail);
+  const orderId = useAppSelector(state => state.orderDetail.orderID);
   const isLoading = useAppSelector(state => state.orderDetail.isLoading);
   const errMessage = useAppSelector(state => state.orderDetail.errorText);
 
-  console.log(order?.number)
   return(
     <>
-      { order?.number &&
+      { orderId &&
       <div className={styles.OrderDetail}>
-        <p className={`${styles.OrderTitle} text text_type_digits-large mb-8`}>{ order?.number }</p>
+        <p className={`${styles.OrderTitle} text text_type_digits-large mb-8`}>{orderId}</p>
         <p className="text text_type_main-medium mb-15">
           идентификатор заказа
         </p>

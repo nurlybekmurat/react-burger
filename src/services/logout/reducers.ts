@@ -1,5 +1,5 @@
 import { deleteCookie } from "../../utils/utils";
-import { LOG_OUT_REQUEST, LOG_OUT_FAILED, LOG_OUT_SUCCESS, TLogoutActions } from "./actions";
+import { LOG_OUT_REQUEST, LOG_OUT_FAILED, LOG_OUT_SUCCESS } from "./actions";
 
 type TLogoutState = {
   logOutRequest: boolean,
@@ -12,7 +12,7 @@ const initialState = {
   logOutFailed: false,
 }
 
-export const logOutReduser = (state: TLogoutState = initialState, action: TLogoutActions): TLogoutState => {
+export const logOutReduser = (state: TLogoutState = initialState, action: any): TLogoutState => {
   switch (action.type) {
     case LOG_OUT_REQUEST: {
       return {
