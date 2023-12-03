@@ -1,0 +1,11 @@
+.OrderCards {
+  width: 50%;
+  max-height: calc(100vh - 188px);
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.Link {
+  text-decoration: none;
+  color: unset;
+}
