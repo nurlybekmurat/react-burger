@@ -1,0 +1,16 @@
+.List {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  max-height: 160px;
+}
+
+.Item {
+  list-style: none;
+  padding-right: 10px;
+}
+
+.Item:not(:nth-child(5n)) {
+  margin-bottom: 8px;
+}

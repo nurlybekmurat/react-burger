@@ -3,6 +3,7 @@ import {
   GET_INGREDIENTS_REQUEST, 
   GET_INGREDIENTS_SUCCESS, 
   GET_INGREDIENTS_FAILED,
+  TGetIngredientsActions,
 } from './actions';
 
 type TIngredientsState = {
@@ -22,7 +23,7 @@ const initialState = {
   constructorIngredients: []
 }
 
-export const ingredientsReducer = (state: TIngredientsState = initialState, action: any): TIngredientsState => {
+export const ingredientsReducer = (state: TIngredientsState = initialState, action: TGetIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }

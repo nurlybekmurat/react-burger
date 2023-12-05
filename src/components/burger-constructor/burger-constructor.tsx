@@ -17,9 +17,9 @@ import {
   getBunItem,
   moveConstructorItem
 } from '../../services/constructor-ingredients/actions';
-import { getOrderDetail, getOrderFailed, getOrderRequest } from '../../services/order-detail/actions';
+import { getOrderRequest } from '../../services/order-detail/actions';
 import { useAppSelector, useAppDispatch  } from '../../hooks/index';
-import { TElement, TElementState, TOrderResponse } from '../../utils/types'
+import { TElement, TElementState } from '../../utils/types'
 import styles from './burger-constructor.module.css';
 
 type TConstructorElementProps = {
