@@ -10,13 +10,13 @@ type TRegisterState = {
   errorText: string
 }
 
-const initialState = {
+const initialStateRegister: TRegisterState = {
   response: null,
   isLoading: false,
   errorText: '',
 }
 
-export const registerReducer = (state: TRegisterState = initialState, action: any): TRegisterState => {
+export const registerReducer = (state: TRegisterState = initialStateRegister, action: any): TRegisterState => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }

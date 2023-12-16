@@ -8,7 +8,7 @@ type TForgotPasswordState = {
   errorText: string
 }
 
-const initialState = {
+export const initialStateForgotPass = {
   isLoading: false,
   success: false,
   isRequestSent: false,
@@ -16,7 +16,7 @@ const initialState = {
   errorText: ''
 }
 
-export const recoverPasswordReducer = (state: TForgotPasswordState = initialState, action: TForgotPasswordActions): TForgotPasswordState => {
+export const recoverPasswordReducer = (state: TForgotPasswordState = initialStateForgotPass, action: TForgotPasswordActions): TForgotPasswordState => {
   switch (action.type) {
     case GET_PASSWORD_REQUEST: {
       return {  

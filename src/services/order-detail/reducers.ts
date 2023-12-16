@@ -13,20 +13,19 @@ type TOrderDetailState = {
   errorText: string
 }
 
-const initialState = {
+export const initialStateOrderDetail: TOrderDetailState  = {
   order: undefined,
   isLoading: false,
   error: false,
   errorText: ''
 }
 
-export const orderReducer = (state: TOrderDetailState = initialState, action: TGetOrderFailedActions): TOrderDetailState => {
+export const orderReducer = (state: TOrderDetailState = initialStateOrderDetail, action: TGetOrderFailedActions): TOrderDetailState => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return { ...state, isLoading: true, errorText: '', order: undefined }
     }
     case GET_ORDER_SUCCESS: {
-      console.log(action.element)
       return { ...state, order: action.element.order, isLoading: false }
     }
     case GET_ORDER_FAILED: {

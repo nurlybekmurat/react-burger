@@ -15,7 +15,7 @@ type TIngredientsState = {
 }
 
 
-const initialState = {
+const initialStateIngredients = {
   ingredients: [],
   isLoading: false,
   error: false,
@@ -23,7 +23,7 @@ const initialState = {
   constructorIngredients: []
 }
 
-export const ingredientsReducer = (state: TIngredientsState = initialState, action: TGetIngredientsActions): TIngredientsState => {
+export const ingredientsReducer = (state: TIngredientsState = initialStateIngredients, action: TGetIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }

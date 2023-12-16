@@ -8,12 +8,12 @@ type TWSState = {
   error?: Event;
 }
 
-const initialState = {
+const initialStateOrderFeed: TWSState = {
   wsConnected: false,
   orderFeed: null
 };
 
-export const orderFeedReducer = (state: TWSState = initialState, action: any): TWSState => {
+export const orderFeedReducer = (state: TWSState = initialStateOrderFeed, action: any): TWSState => {
   switch (action.type) {
     case ORDER_FEED_SUCCESS:
       return {

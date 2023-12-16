@@ -13,7 +13,7 @@ export type TUserState = {
   userEmail: string
 }
 
-const initialState = {
+export const initialStateUser: TUserState = {
   userRefreshRequest: false,
   userRefreshFailed: false,
   userInfoRequest: false,
@@ -23,7 +23,7 @@ const initialState = {
   userEmail: ''
 }
 
-export const userReduser = (state: TUserState = initialState, action: TUserActions): TUserState => {
+export const userReduser = (state: TUserState = initialStateUser, action: TUserActions): TUserState => {
   switch (action.type) {
     case REFRESH_USER_INFO_REQUEST: {
       return {
