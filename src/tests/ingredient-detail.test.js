@@ -18,7 +18,10 @@ describe('Получение ингредиента', () => {
     index: 1,
     id: '777'
   }
- 
+
+  it('проверка начального состояния', () => {
+    expect(ingredientDetailReducer(undefined, {})).toEqual(initialStateIngredientDetail);
+  })
   it('При вызове getIngredientDetail ингредиент корректно добавляется в хранилище', () => {
     const result = ingredientDetailReducer(initialStateIngredientDetail, getIngredientDetail(ingredient));
     expect(result.ingredientDetail).toEqual(ingredient)

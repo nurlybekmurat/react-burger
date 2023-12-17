@@ -28,7 +28,7 @@ export const recoverPasswordReducer = (state: TForgotPasswordState = initialStat
     case GET_PASSWORD_SUCCESS: {
       return {  
         ...state,
-        success: action.res.success,
+        success: action.res,
         isLoading: false,
         emailRecoverSuccess: true
       }
@@ -44,7 +44,7 @@ export const recoverPasswordReducer = (state: TForgotPasswordState = initialStat
         ...state,
         success: false,
         isLoading: false,
-        errorText: action.res.message
+        errorText: action.res
       }
     }
     case GET_PASSWORD_CLEAN: {

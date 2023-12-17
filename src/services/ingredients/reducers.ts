@@ -15,7 +15,7 @@ type TIngredientsState = {
 }
 
 
-const initialStateIngredients = {
+export const initialStateIngredients: TIngredientsState = {
   ingredients: [],
   isLoading: false,
   error: false,
@@ -29,7 +29,7 @@ export const ingredientsReducer = (state: TIngredientsState = initialStateIngred
       return { ...state, isLoading: true, errorText: '', }
     }
     case GET_INGREDIENTS_SUCCESS: {
-      return { ...state, ingredients: action.payload.data, isLoading: false }
+      return { ...state, ingredients: action.payload, isLoading: false }
     }
     case GET_INGREDIENTS_FAILED: {
       return { ...state, ingredients: [], isLoading: false, errorText: action.payload }

@@ -1,13 +1,7 @@
 import { orderReducer, initialStateOrderDetail } from '../services/order-detail/reducers';
-import { postOrder, getOrderRequest, getOrderDetail, getOrderFailed } from '../services/order-detail/actions';
+import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAILED, } from '../services/order-detail/actions';
 
 describe('Тестирование детали заказа', () => {
-  const orderRes = {
-    error: false,
-    errorText: "",
-    isLoading: false,
-    order: undefined,
-  }
   const orderResponse = {
     name: 'string',
     order: {
@@ -42,27 +36,20 @@ describe('Тестирование детали заказа', () => {
     success: true
   }
 
-  it('успешно прошел запрос', () => {
-    const result = orderReducer(initialStateOrderDetail, postOrder());
-    expect(result)
-      .toEqual(orderRes)
+  it('проверка начального состояния', () => {
+    expect(orderReducer(undefined, {})).toEqual(initialStateOrderDetail);
   })
-  it('тест запроса', () => {
-    const result = orderReducer(initialStateOrderDetail, getOrderRequest());
-    orderRes.isLoading = true
-    expect(result)
-      .toEqual(orderRes)
+
+  it('проверка запроса', () => {
+    const result = orderReducer(initialStateOrderDetail, { type: GET_ORDER_REQUEST });
+    expect(result.isLoading).toEqual(true)
   })
-  it('тест ответа  запроса', () => {
-    const result = orderReducer(initialStateOrderDetail, getOrderDetail(orderResponse));
-    result.order = {...orderResponse}
-    expect(result.order)
-      .toEqual(orderResponse)
+  it('проверка успешного запроса', () => {
+    const result = orderReducer(initialStateOrderDetail, { type: GET_ORDER_SUCCESS, element: orderResponse });
+    expect(result.order).toEqual(orderResponse.order)
   })
-  it('тест ответа  запроса', () => {
-    const result = orderReducer(initialStateOrderDetail, getOrderFailed('Ошибка'));
-    result.errorText = 'Ошибка';
-    expect(result.errorText)
-      .toEqual('Ошибка')
+  it('проверка ошибки запроса', () => {
+    const result = orderReducer(initialStateOrderDetail, { type: GET_ORDER_FAILED, element: 'errorText' });
+    expect(result.errorText).toEqual('errorText')
   })
 })

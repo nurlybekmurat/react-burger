@@ -1,4 +1,4 @@
-import { ORDER_FEED_CLOSE, ORDER_FEED_CLOSED, ORDER_FEED_ERROR, ORDER_FEED_GET_MESSAGE, ORDER_FEED_SUCCESS } from './actions';
+import { ORDER_FEED_CLOSE, ORDER_FEED_CLOSED, ORDER_FEED_ERROR, ORDER_FEED_GET_MESSAGE, ORDER_FEED_SUCCESS, TOrderFeedActions } from './actions';
 import { TOrderFeed } from '../../utils/types';
 
 type TWSState = {
@@ -8,12 +8,12 @@ type TWSState = {
   error?: Event;
 }
 
-const initialStateOrderFeed: TWSState = {
+export const initialStateOrderFeed: TWSState = {
   wsConnected: false,
   orderFeed: null
 };
 
-export const orderFeedReducer = (state: TWSState = initialStateOrderFeed, action: any): TWSState => {
+export const orderFeedReducer = (state: TWSState = initialStateOrderFeed, action: TOrderFeedActions): TWSState => {
   switch (action.type) {
     case ORDER_FEED_SUCCESS:
       return {

@@ -73,7 +73,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
   }
 
   const handleOpen = () => {
-    if (!isUserAuth) {
+    if (getCookie('token')) {
       navigate('/login');
     }
 

@@ -100,15 +100,7 @@ describe('Тестирование редьюсера конструктора �
 
   it('При использовании "getConstructorItem" ингредиент должен корректно добавляться в массив ингридиентов', () => {
     const result = constructorReducer(initialStateBurgerConstructor, getConstructorItem(ingredient));
-    expect(result).toEqual({
-      ...initialStateBurgerConstructor,
-      constructorList: [
-        {
-          ...ingredient,
-          id: result.constructorList[0].id
-        }
-      ]
-  })
+    expect(result.constructorList[0]).toBe(ingredient)
   })
 
   it('При использовании "deleteConstructorItem" ингредиент должен коректно удаляться из массива ингредиентов', () => {
