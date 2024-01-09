@@ -8,12 +8,12 @@ type TWSState = {
   error?: Event;
 }
 
-const initialState = {
+export const initialStateOrderHistory: TWSState = {
   wsConnected: false,
   orderHistory: null
 };
 
-export const orderHistoryReducer = (state: TWSState = initialState, action: any): TWSState => {
+export const orderHistoryReducer = (state: TWSState = initialStateOrderHistory, action: any): TWSState => {
   switch (action.type) {
     case ORDER_HISTORY_SUCCESS:
       return {

@@ -1,3 +1,4 @@
+import { TOrderFeed } from "../../utils/types";
 import { TWsActions } from "../middleware/customMiddleware";
 export const ORDER_HISTORY_START: 'ORDER_HISTORY_START' = 'ORDER_HISTORY_START';
 export const ORDER_HISTORY_SUCCESS: 'ORDER_HISTORY_SUCCESS' = 'ORDER_HISTORY_SUCCESS';
@@ -11,16 +12,42 @@ export interface IOrderHistoryStart {
     readonly payload: string
 }
 
+export interface IOrderHistorySuccess {
+  readonly type: typeof ORDER_HISTORY_SUCCESS,
+}
+
 export interface IOrderHistoryClose {
   readonly type: typeof ORDER_HISTORY_CLOSE,
   readonly payload: string
 }
 
+export interface IOrderHistoryError {
+  readonly type: typeof ORDER_HISTORY_ERROR,
+  readonly payload: Event
+}
+
+export interface IOrderHistoryClosed {
+  readonly type: typeof ORDER_HISTORY_CLOSED,
+}
+
+export interface IOrderHistoryClose {
+  readonly type: typeof ORDER_HISTORY_CLOSE,
+  readonly payload: string
+}
+
+export interface IOrderHistoryGetMessage {
+  readonly type: typeof ORDER_HISTORY_GET_MESSAGE,
+  readonly payload: TOrderFeed | null
+}
+
 
 export type TOrderHistoryActions = 
   | IOrderHistoryStart
+  | IOrderHistorySuccess
   | IOrderHistoryClose
-
+  | IOrderHistoryError
+  | IOrderHistoryClosed
+  | IOrderHistoryGetMessage
 
 export const orderHistoryStart = (Url: string) => {
     return {

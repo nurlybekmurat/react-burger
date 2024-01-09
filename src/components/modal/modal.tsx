@@ -22,7 +22,7 @@ export const Modal: FC<IProps> = ({ children, handleClose, modalTitle='' }) => {
   return createPortal(
     <>
       <ModalOverlay handleClose={handleClose} />
-      <div className={styles.Modal}>
+      <div className={styles.Modal} id='modal'>
         <button onClick={handleClose} className={styles.ModalCloseBtn}>
           <CloseIcon type="primary" />
         </button>

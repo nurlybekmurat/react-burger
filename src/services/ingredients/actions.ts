@@ -1,4 +1,4 @@
-import { TElement } from '../../utils/types';
+import { TElement, TIngredientsResponse } from '../../utils/types';
 import { request } from '../../utils/utils';
 import { AppDispatch, AppThunk } from '../store';
 
@@ -13,10 +13,7 @@ export interface IGetIngredientsRequest {
 
 export interface IGetIngredientsSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS,
-  payload: {
-    readonly success: boolean,
-    readonly data: TElement[]
-}
+  payload: TElement[]
 }
 
 export interface IGetIngredientsFailed {
@@ -39,8 +36,8 @@ export const getIngredients: AppThunk = () => {
         'Content-Type': 'application/json',
         Accept: "application/json"
     }
-    }).then((data) => {
-      dispatch({ type: GET_INGREDIENTS_SUCCESS, payload: data })
+    }).then((data: any) => {
+      dispatch({ type: GET_INGREDIENTS_SUCCESS, payload: data.data })
     }).catch((err)=> { dispatch({ type: GET_INGREDIENTS_FAILED, payload: err.message})})
   }
 }

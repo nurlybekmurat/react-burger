@@ -49,7 +49,9 @@ export const Ingridient: FC <IProps>= ({data}) => {
   return(
     <>
       <Link to={`ingredients/${data._id}`} state={{ backgroundLocation: location }} className={styles.CardLink}>
-        <li className={`${styles.Card}`} onClick={handleOpen} >
+        <li className={`${styles.Card}`} onClick={handleOpen} 
+          data-test={data.name}
+          >
           {countValue > 0 &&
             <div className={styles.Counter}>
               <Counter 

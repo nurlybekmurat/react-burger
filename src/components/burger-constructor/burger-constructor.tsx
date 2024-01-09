@@ -73,7 +73,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
   }
 
   const handleOpen = () => {
-    if (!isUserAuth) {
+    if (getCookie('token')) {
       navigate('/login');
     }
 
@@ -91,7 +91,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
   }
   
   return (
-    <div className={`${styles.BurgerConstructor}`}>
+    <div className={`${styles.BurgerConstructor}`} data-test="BurgerConstructor">
       <div className={`${styles.DropContainer} mb-10`} ref={dropTarget} style={{ border }}>
         <div className={`${styles.IngredientItem} mb-4`}>
           {data.length === 0 
@@ -179,7 +179,7 @@ export const BurgerConstructor: FC<TConstructorElementProps> = () => {
         <span className="mr-10">
           <CurrencyIcon type="primary" />
         </span>
-        <Button onClick={handleOpen} disabled={data.length === 0} htmlType="button" type="primary" size="medium">
+        <Button onClick={handleOpen} disabled={data.length === 0} htmlType="button" type="primary" size="medium" data-test="SendOrder">
           Оформить заказ
         </Button>
       </div>

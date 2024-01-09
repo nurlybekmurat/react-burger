@@ -117,3 +117,8 @@ export type TOrderFeedOptions = {
 export type TSameOrderIngredient = TElement & {
   quantity: number
 }
+
+export type TIngredientsResponse = {
+  success: boolean,
+  data?: TElement[]
+}

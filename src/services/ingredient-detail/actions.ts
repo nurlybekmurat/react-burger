@@ -16,10 +16,12 @@ export type TIngredientDetailActions =
 | IGetIngredientDetail
 | ICleanIngredientDetail
 
-export const getIngredientDetail = (element: TElement) => ({
-  type: GET_INGREDIENT_DETAIL,
-  element
-});
+export const getIngredientDetail = (element: TElement) => {
+  return {
+    type: GET_INGREDIENT_DETAIL,
+    element
+  }
+};
 
 export const clearIngredientDetail = () => ({
   type: CLEAR_INGREDIENT_DETAIL

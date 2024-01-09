@@ -14,13 +14,13 @@ type TState = {
   errorText: string,
 }
 
-const initialState = {
+export const initialStateLogin: TState = {
   loginData: undefined,
   isLoading: false,
   errorText: '',
 }
 
-export const loginReducer = (state: TState = initialState, action: TLoginActions): TState => {
+export const loginReducer = (state: TState = initialStateLogin, action: TLoginActions): TState => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return { ...state, isLoading: true, errorText: '', }

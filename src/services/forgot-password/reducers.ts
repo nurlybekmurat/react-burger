@@ -8,7 +8,7 @@ type TForgotPasswordState = {
   errorText: string
 }
 
-const initialState = {
+export const initialStateForgotPass = {
   isLoading: false,
   success: false,
   isRequestSent: false,
@@ -16,7 +16,7 @@ const initialState = {
   errorText: ''
 }
 
-export const recoverPasswordReducer = (state: TForgotPasswordState = initialState, action: TForgotPasswordActions): TForgotPasswordState => {
+export const recoverPasswordReducer = (state: TForgotPasswordState = initialStateForgotPass, action: TForgotPasswordActions): TForgotPasswordState => {
   switch (action.type) {
     case GET_PASSWORD_REQUEST: {
       return {  
@@ -28,7 +28,7 @@ export const recoverPasswordReducer = (state: TForgotPasswordState = initialStat
     case GET_PASSWORD_SUCCESS: {
       return {  
         ...state,
-        success: action.res.success,
+        success: action.res,
         isLoading: false,
         emailRecoverSuccess: true
       }
@@ -44,7 +44,7 @@ export const recoverPasswordReducer = (state: TForgotPasswordState = initialStat
         ...state,
         success: false,
         isLoading: false,
-        errorText: action.res.message
+        errorText: action.res
       }
     }
     case GET_PASSWORD_CLEAN: {

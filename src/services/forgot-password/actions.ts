@@ -14,12 +14,12 @@ export interface IGetPasswordRequest {
 
 export interface IGetPasswordSuccess {
   readonly type: typeof GET_PASSWORD_SUCCESS,
-  readonly res: TForgotPass
+  readonly res: boolean
 }
 
 export interface IGetPasswordFailed {
   readonly type: typeof GET_PASSWORD_FAILED,
-  readonly res: TForgotPass
+  readonly res: string
 }
 
 export interface IRecoverPasswordClean {
